@@ -11,8 +11,9 @@ const ws = crossws({
 
 const server = http.createServer();
 
-server.on("upgrade", (req, socket, head) => {
-  ws.handleUpgrade(req, socket, head);
+server.on('upgrade', async (req, socket, head) => {
+  await ws.handleUpgrade(req, socket, head);
+  // socket.destroy(); // without this line, the server will crash on Windows
 });
 
 server.listen(8000, () => {
